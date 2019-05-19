@@ -1,11 +1,11 @@
 const { Router } = require("express");
 const router = new Router();
 const fs = require("fs");
-
+const path = "./users.txt";
 users = undefined;
 var s = new Set();
 router.get("/", (req, res) => {
-  fs.readFile("./users.txt", { encoding: "utf-8" }, function(err, data) {
+  fs.readFile(path, { encoding: "utf-8" }, function(err, data) {
     if (err) {
       return console.log(err);
     }

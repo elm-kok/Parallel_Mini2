@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const router = new Router();
 const fs = require("fs");
-
+const path = "./users.txt";
 router.get("/:ROOM_ID", (req, res) => {
-  fs.readFile("./users.txt", { encoding: "utf-8" }, function(err, data) {
+  fs.readFile(path, { encoding: "utf-8" }, function(err, data) {
     if (err) {
       return console.log(err);
     }
@@ -19,16 +19,16 @@ router.post("/:ROOM_ID", (req, res) => {
   if (users[req.params.ROOM_ID] === undefined) users[req.params.ROOM_ID] = [];
   if (!users[req.params.ROOM_ID].includes(req.body.user)) {
     users[req.params.ROOM_ID].push(req.body.user);
-    fs.writeFileSync("./users.txt", JSON.stringify(users));
-    res.status(200).json({});
+    fs.writeFileSync(path, JSON.stringify(users));
+    res.status(201).json({});
   } else {
     users[req.params.ROOM_ID].push(req.body.user);
-    res.status(201).json(`${req.params.ROOM_ID} already exists`);
+    res.status(200).json(`${req.params.ROOM_ID} already exists`);
   }
 });
 
 router.delete("/:ROOM_ID", (req, res) => {
-  fs.readFile("./users.txt", { encoding: "utf-8" }, function(err, data) {
+  fs.readFile(path, { encoding: "utf-8" }, function(err, data) {
     if (err) {
       return console.log(err);
     }
@@ -42,7 +42,7 @@ router.delete("/:ROOM_ID", (req, res) => {
           users[req.params.ROOM_ID].splice(i, 1);
         }
       }
-      fs.writeFileSync("./users.txt", JSON.stringify(users), function(err) {
+      fs.writeFileSync(path, JSON.stringify(users), function(err) {
         if (err) {
           return console.log(err);
         }
