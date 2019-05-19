@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   if (!all_rooms[req.body.id]) {
     all_rooms[req.body.id] = [];
-    fs.writeFile("./users.txt", JSON.stringify(all_rooms), function(err) {
+    fs.writeFileSync("./users.txt", JSON.stringify(all_rooms), function(err) {
       if (err) {
         return console.log(err);
       }
@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
 router.put("/", (req, res) => {
   if (!all_rooms[req.body.id]) {
     all_rooms[req.body.id] = [];
-    fs.writeFile("./users.txt", JSON.stringify(all_rooms), function(err) {
+    fs.writeFileSync("./users.txt", JSON.stringify(all_rooms), function(err) {
       if (err) {
         return console.log(err);
       }
@@ -52,7 +52,7 @@ router.delete("/", (req, res) => {
       if (key !== req.body.id) tmp[key] = all_rooms[key];
     });
     all_rooms = tmp;
-    fs.writeFile("./users.txt", JSON.stringify(tmp), function(err) {
+    fs.writeFileSync("./users.txt", JSON.stringify(tmp), function(err) {
       if (err) {
         return console.log(err);
       }
